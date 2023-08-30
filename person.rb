@@ -2,9 +2,15 @@ class Person
   attr_accessor :name, :age
   attr_reader :id
 
-  def initialize(age, name = 'unknown', parent_permission: true)
-    @id = self.class.last_id + 1
-    self.class.last_id = @id
+  @id_tem = 0
+
+  class << self
+    attr_accessor :id_tem
+  end
+
+  def initialize(age, name = 'unknown', parent_permission = true)
+    self.class.id_tem += 1
+    @id = self.class.id_tem
     @age = age
     @name = name
     @parent_permission = parent_permission
@@ -17,12 +23,6 @@ class Person
       @parent_permission ? true : false
     end
   end
-
-  class << self
-    attr_accessor :last_id
-  end
-
-  @last_id = 0
 
   private
 
