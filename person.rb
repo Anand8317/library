@@ -8,7 +8,7 @@ class Person
     attr_accessor :id_tem
   end
 
-  def initialize(age, name = 'unknown', parent_permission = true)
+  def initialize(age, name = 'unknown', parent_permission: true)
     self.class.id_tem += 1
     @id = self.class.id_tem
     @age = age
