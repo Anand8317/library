@@ -17,7 +17,7 @@ class App
 
   def menu
     loop do
-      puts '\n'
+      puts ' '
       puts 'Please choose an option by entering a number:'
       puts '1 - List all books'
       puts '2 - List all people'
@@ -43,7 +43,6 @@ class App
         create_rental
       when 6
         list_rentals
-      end
       when 7 then puts 'Thank you for using our app.'
       end
       break if choice == 7
@@ -92,7 +91,6 @@ class App
     permission = gets.chomp
     person = Student.new(age, name, permission)
     @people.push(person)
-    binding.pry
     puts "Student '#{name}' created successfully"
   end
 
