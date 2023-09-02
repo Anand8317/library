@@ -1,0 +1,14 @@
+require './person'
+
+class Teacher < Person
+  @id_tem = 0
+
+  def initialize(age, specialization, name = 'unknown', parent_permission: true)
+    super(age, name, parent_permission)
+    @specialization = specialization
+  end
+
+  def can_use_services?
+    true
+  end
+end
