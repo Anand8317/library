@@ -1,7 +1,6 @@
 require './person'
 
 class Student < Person
-  @id_tem = 0
   attr_reader :classroom
   attr_accessor :type
 
