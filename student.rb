@@ -1,12 +1,11 @@
 require './person'
 
 class Student < Person
-  @id_tem = 0
   attr_reader :classroom
   attr_accessor :type
 
-  def initialize(age, classroom, name = 'unknown', parent_permission: true)
-    super(age, name, parent_permission)
+  def initialize(age, classroom, name = 'unknown')
+    super(age, name)
     @classroom = classroom
     @type = 'Student'
   end
