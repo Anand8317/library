@@ -5,7 +5,7 @@ class Student < Person
   attr_reader :classroom
   attr_accessor :type
 
-  def initialize(age, classroom, name = 'unknown', parent_permission: true)
+  def initialize(age, classroom, name = 'unknown')
     super(age, name)
     @classroom = classroom
     @type = 'Student'

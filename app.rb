@@ -31,21 +31,27 @@ class App
       choice = gets.chomp.to_i
 
       case choice
-      when 1
-      list_books
-      when 2
-        list_people
-      when 3
-        create_person
-      when 4
-        create_book
-      when 5
-        create_rental
-      when 6
-        list_rentals
+      when 1..6 then options(choice)
       when 7 then puts 'Thank you for using our app.'
       end
       break if choice == 7
+    end
+  end
+
+  def options(choice)
+    case choice
+    when 1
+      list_books
+    when 2
+      list_people
+    when 3
+      create_person
+    when 4
+      create_book
+    when 5
+      create_rental
+    when 6
+      list_rentals
     end
   end
 
@@ -122,22 +128,26 @@ class App
     elsif @people.empty?
       puts 'Sorry, there is no person in the Database. Add a person first in the database'
     else
-      puts 'Select a book from the following list by number'
-      @books.each_with_index { |book, index| puts "#{index} - Title: #{book.title}, Author: #{book.author}" }
-      book_index = gets.chomp.to_i
-      book = @books[book_index]
-      puts 'Select a person from the following list by number (not id)'
-      @people.each_with_index do |person, index|
-        puts "#{index} [#{person.type}] - Name: #{person.name}, Age: #{person.age}"
-      end
-      person_id = gets.chomp.to_i
-      person = @people[person_id]
-      print 'Date: '
-      date = gets.chomp
-      rental = Rental.new(date, person, book)
-      @rentals.push(rental)
-      puts "Rental for '#{book.title}' by '#{person.name}' created successfully"
+      rental_child
     end
+  end
+
+  def rental_child
+    puts 'Select a book from the following list by number'
+    @books.each_with_index { |book, index| puts "#{index} - Title: #{book.title}, Author: #{book.author}" }
+    book_index = gets.chomp.to_i
+    book = @books[book_index]
+    puts 'Select a person from the following list by number (not id)'
+    @people.each_with_index do |person, index|
+      puts "#{index} [#{person.type}] - Name: #{person.name}, Age: #{person.age}"
+    end
+    person_id = gets.chomp.to_i
+    person = @people[person_id]
+    print 'Date: '
+    date = gets.chomp
+    rental = Rental.new(date, person, book)
+    @rentals.push(rental)
+    puts "Rental for '#{book.title}' by '#{person.name}' created successfully"
   end
 
   def list_rentals

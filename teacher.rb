@@ -4,7 +4,7 @@ class Teacher < Person
   @id_tem = 0
   attr_accessor :type
 
-  def initialize(age, specialization, name = 'unknown', parent_permission: true)
+  def initialize(age, specialization, name = 'unknown')
     super(age, name)
     @specialization = specialization
     @type = 'Teacher'
