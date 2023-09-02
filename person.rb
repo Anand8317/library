@@ -11,6 +11,7 @@ class Person < Nameable
   end
 
   def initialize(age, name = 'unknown', parent_permission: true)
+    super
     self.class.id_tem += 1
     @id = self.class.id_tem
     @age = age
