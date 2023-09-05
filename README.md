@@ -75,6 +75,13 @@ Clone this repository to your desired folder:
 - Twitter: [AnandPathak](https://twitter.com/anand029)
 - LinkedIn: [AnandPathak](https://www.linkedin.com/in/anand-pathak-473611171/)
 
+👤 **Innocent Ndahimana**
+
+- GitHub: [@innocent259](https://github.com/Innocent259)
+- Twitter: [@innocentndahimana](https://www.linkedin.com/in/innocent259/)
+- LinkedIn: [@innocentndahimana](https://twitter.com/ndahimana259)
+
+
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- FUTURE FEATURES -->
