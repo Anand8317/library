@@ -113,8 +113,6 @@ class App
     else
       rental_child
     end
-    File.write('rental.json', rental.to_json)
-
   end
 
   def rental_child
@@ -133,6 +131,8 @@ class App
     rental = Rental.new(date, person, book)
     @rentals.push(rental)
     puts "Rental for '#{book.title}' by '#{person.name}' created successfully"
+
+    File.write('rental.json', rental.to_json)
   end
 
   def list_rentals
