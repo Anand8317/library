@@ -14,10 +14,9 @@ class Book
     Rental.new(date, person, self)
   end
 
-  def to_json
-    { title: @title, 
-      author: @author,
-    }.to_json
+  def to_json(*_args)
+    { title: @title,
+      author: @author }.to_json
   end
 
   def self.from_json(json_string)

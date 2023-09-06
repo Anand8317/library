@@ -14,11 +14,10 @@ class Teacher < Person
     true
   end
 
-  def to_json
-    { age: @age, 
+  def to_json(*_args)
+    { age: @age,
       specialization: @specialization,
-      name: @name,
-    }.to_json
+      name: @name }.to_json
   end
 
   def self.from_json(json_string)
@@ -27,5 +26,4 @@ class Teacher < Person
     name = JSON.parse(json_string)['name']
     Teacher.new(age, specialization, name)
   end
-
 end

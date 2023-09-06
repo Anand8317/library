@@ -76,9 +76,7 @@ class App
     @people.push(person)
     puts "Student '#{name}' created successfully"
 
-    File.open("student.json", "w") do |file|
-      file.write(person.to_json)
-    end
+    File.write('student.json', person.to_json)
   end
 
   def create_teacher
@@ -92,9 +90,7 @@ class App
     @people.push(person)
     puts "Teacher '#{name}' created successfully"
 
-    File.open("teacher.json", "w") do |file|
-      file.write(person.to_json)
-    end
+    File.write('teacher.json', person.to_json)
   end
 
   def create_book
@@ -106,9 +102,7 @@ class App
     @books.push(book)
     puts "Book '#{title}' created successfully"
 
-    File.open("book.json", "w") do |file|
-      file.write(book.to_json)
-    end
+    File.write('book.json', book.to_json)
   end
 
   def create_rental
@@ -155,20 +149,20 @@ class App
   end
 
   def load_data
-    if File.exist?("student.json")
-      json_data = File.read("student.json")
+    if File.exist?('student.json')
+      json_data = File.read('student.json')
       s = Student.from_json(json_data)
       @people.push(s)
     end
-    if File.exist?("teacher.json")
-      json_data = File.read("teacher.json")
+    if File.exist?('teacher.json')
+      json_data = File.read('teacher.json')
       s = Teacher.from_json(json_data)
       @people.push(s)
     end
-    if File.exist?("book.json")
-      json_data = File.read("book.json")
-      s = Book.from_json(json_data)
-      @books.push(s)
-    end
+    return unless File.exist?('book.json')
+
+    json_data = File.read('book.json')
+    s = Book.from_json(json_data)
+    @books.push(s)
   end
 end
