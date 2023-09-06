@@ -105,6 +105,10 @@ class App
     book = Book.new(title, author)
     @books.push(book)
     puts "Book '#{title}' created successfully"
+
+    File.open("book.json", "w") do |file|
+      file.write(book.to_json)
+    end
   end
 
   def create_rental
@@ -160,6 +164,11 @@ class App
       json_data = File.read("teacher.json")
       s = Teacher.from_json(json_data)
       @people.push(s)
+    end
+    if File.exist?("book.json")
+      json_data = File.read("book.json")
+      s = Book.from_json(json_data)
+      @books.push(s)
     end
   end
 end
