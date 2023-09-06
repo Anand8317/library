@@ -14,29 +14,12 @@ def menu(app)
     print ''
 
     choice = gets.chomp.to_i
-
-    case choice
-    when 1..6 then options(app, choice)
-    when 7 then puts 'Thank you for using our app.'
+    if choice == 7
+      puts 'Thank you for using our app.'
+      break
+    else
+      app.call(choice)
     end
-    break if choice == 7
-  end
-end
-
-def options(app, choice)
-  case choice
-  when 1
-    app.list_books
-  when 2
-    app.list_people
-  when 3
-    app.create_person
-  when 4
-    app.create_book
-  when 5
-    app.create_rental
-  when 6
-    app.list_rentals
   end
 end
 
