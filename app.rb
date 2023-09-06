@@ -75,6 +75,10 @@ class App
     person = Student.new(age, classroom, name)
     @people.push(person)
     puts "Student '#{name}' created successfully"
+
+    File.open("student.json", "w") do |file|
+      file.write(person.to_json)
+    end
   end
 
   def create_teacher
@@ -139,6 +143,14 @@ class App
           puts "Date: #{rental.date}, Book '#{rental.book.title}' by #{rental.book.author}"
         end
       end
+    end
+  end
+
+  def load_data
+    if File.exist?("student.json")
+      json_data = File.read("student.json")
+      s = Student.from_json(json_data)
+      @people.push(s)
     end
   end
 end
