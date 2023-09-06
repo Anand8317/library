@@ -113,6 +113,8 @@ class App
     else
       rental_child
     end
+    File.write('rental.json', rental.to_json)
+
   end
 
   def rental_child
@@ -163,6 +165,12 @@ class App
 
     json_data = File.read('book.json')
     s = Book.from_json(json_data)
+    @books.push(s)
+
+    return unless File.exist?('rental.json')
+
+    json_data = File.read('rental.json')
+    s = Rental.from_json(json_data)
     @books.push(s)
   end
 end
