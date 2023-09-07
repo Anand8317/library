@@ -2,8 +2,6 @@ require_relative 'app'
 require_relative 'student'
 
 def menu(app)
-  app.load_data
-
   loop do
     puts ' '
     puts 'Please choose an option by entering a number:'

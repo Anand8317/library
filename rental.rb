@@ -24,8 +24,8 @@ class Rental
 
   def to_json(*args)
     {
-      JSON.create_id  => self.class.name,
-      'a'             => [ date, person, book ]
+      JSON.create_id => self.class.name,
+      'a' => [date, person, book]
     }.to_json(*args)
   end
 

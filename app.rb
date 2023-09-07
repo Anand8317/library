@@ -4,11 +4,13 @@ require_relative 'student'
 require_relative 'rental'
 require_relative 'classroom'
 
+# rubocop:disable Metrics/ClassLength
 class App
   def initialize
     @books = []
     @people = []
     @rentals = []
+    load_data
   end
 
   def call(choice)
@@ -153,36 +155,50 @@ class App
   def load_data
     if File.exist?('student.json')
       File.foreach('student.json') do |line|
-        s = JSON.parse(line, create_additions: true)
-        @people.push(s)
+        load_people_data(line)
       end
     end
 
     if File.exist?('teacher.json')
       File.foreach('teacher.json') do |line|
-        s = JSON.parse(line, create_additions: true)
-        @people.push(s)
+        load_people_data(line)
       end
     end
-    
-    return unless File.exist?('book.json')
 
-    File.foreach('book.json') do |line|
-      s = JSON.parse(line, create_additions: true)
-      @books.push(s)
+    if File.exist?('book.json')
+      File.foreach('book.json') do |line|
+        s = JSON.parse(line, create_additions: true)
+        @books.push(s)
+      end
     end
-
-    return unless File.exist?('rental.json')
 
     File.foreach('rental.json') do |line|
-      s = JSON.parse(line)
-      selected_person = ObjectSpace.each_object(Student).select do |obj|
-        obj.name == s['a'][1]['a'][2] && obj.age == s['a'][1]['a'][0]
-      end
-      selected_book = ObjectSpace.each_object(Book).select do |obj|
-        obj.title == s['a'][2]['a'][0]
-      end
-      s1 = Rental.new(s['a'][0], selected_person[0], selected_book[0])
+      load_rental_data(line)
+    end
+  end
+
+  def load_people_data(line)
+    s = JSON.parse(line, create_additions: true)
+    @people.push(s)
+  end
+
+  def load_rental_data(line)
+    s = JSON.parse(line)
+    selected_student = ObjectSpace.each_object(Student).select do |obj|
+      obj.name == s['a'][1]['a'][2] && obj.age == s['a'][1]['a'][0]
+    end
+    selected_teacher = ObjectSpace.each_object(Teacher).select do |obj|
+      obj.name == s['a'][1]['a'][2] && obj.age == s['a'][1]['a'][0]
+    end
+    selected_book = ObjectSpace.each_object(Book).select do |obj|
+      obj.title == s['a'][2]['a'][0]
+    end
+
+    begin
+      s1 = Rental.new(s['a'][0], selected_student[0], selected_book[0])
+      @rentals.push(s1)
+    rescue StandardError
+      s1 = Rental.new(s['a'][0], selected_teacher[0], selected_book[0])
       @rentals.push(s1)
     end
   end
@@ -190,30 +206,27 @@ class App
   def save_data
     File.open('student.json', 'w') do |file|
       @people.each do |people|
-        if people.type == 'Student'
-          file.puts JSON.generate(people)
-        end
+        file.puts JSON.generate(people) if people.type == 'Student'
       end
     end
 
     File.open('teacher.json', 'w') do |file|
       @people.each do |people|
-        if people.type == 'Teacher'
-          file.puts JSON.generate(people)
-        end
+        file.puts JSON.generate(people) if people.type == 'Teacher'
       end
     end
 
     File.open('book.json', 'w') do |file|
       @books.each do |book|
-        file.puts JSON.generate(book) 
+        file.puts JSON.generate(book)
       end
     end
 
     File.open('rental.json', 'w') do |file|
       @rentals.each do |rental|
-        file.puts JSON.generate(rental) 
+        file.puts JSON.generate(rental)
       end
     end
   end
 end
+# rubocop:enable Metrics/ClassLength
