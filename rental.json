@@ -2,3 +2,4 @@
 {"json_class":"Rental","a":["23/05/2023",{"json_class":"Student","a":[23,"#<Classroom:0x0000000105931808>","qwe"]},{"json_class":"Book","a":["qqq","qqqq"]}]}
 {"json_class":"Rental","a":["23/07/2000",{"json_class":"Student","a":[23,"#<Classroom:0x0000000105931808>","qwe"]},{"json_class":"Book","a":["aa","aaa"]}]}
 {"json_class":"Rental","a":["23/09/2000",{"json_class":"Teacher","a":[54,"zxcv","zxc"]},{"json_class":"Book","a":["vb","vbb"]}]}
+{"json_class":"Rental","a":["23/11/2023",{"json_class":"Student","a":[27,"#<Classroom:0x000000010338ece0>","qwe"]},{"json_class":"Book","a":["vb","vbb"]}]}

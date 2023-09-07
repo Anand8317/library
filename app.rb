@@ -4,7 +4,6 @@ require_relative 'student'
 require_relative 'rental'
 require_relative 'classroom'
 
-# rubocop:disable Metrics/ClassLength
 class App
   def initialize
     @books = []
@@ -151,7 +150,9 @@ class App
       end
     end
   end
+end
 
+App.class_eval do
   def load_data
     if File.exist?('student.json')
       File.foreach('student.json') do |line|
@@ -181,7 +182,9 @@ class App
     s = JSON.parse(line, create_additions: true)
     @people.push(s)
   end
+end
 
+App.class_eval do
   def load_rental_data(line)
     s = JSON.parse(line)
     selected_student = ObjectSpace.each_object(Student).select do |obj|
@@ -202,7 +205,9 @@ class App
       @rentals.push(s1)
     end
   end
+end
 
+App.class_eval do
   def save_data
     File.open('student.json', 'w') do |file|
       @people.each do |people|
@@ -229,4 +234,3 @@ class App
     end
   end
 end
-# rubocop:enable Metrics/ClassLength
