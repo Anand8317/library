@@ -76,7 +76,7 @@ class App
     @people.push(person)
     puts "Student '#{name}' created successfully"
 
-    File.write('student.json', person.to_json)
+    File.write('student.json', JSON.generate(person))
   end
 
   def create_teacher
@@ -90,7 +90,7 @@ class App
     @people.push(person)
     puts "Teacher '#{name}' created successfully"
 
-    File.write('teacher.json', person.to_json)
+    File.write('teacher.json', JSON.generate(person))
   end
 
   def create_book
@@ -102,7 +102,7 @@ class App
     @books.push(book)
     puts "Book '#{title}' created successfully"
 
-    File.write('book.json', book.to_json)
+    File.write('book.json', JSON.generate(book))
   end
 
   def create_rental
@@ -132,7 +132,7 @@ class App
     @rentals.push(rental)
     puts "Rental for '#{book.title}' by '#{person.name}' created successfully"
 
-    File.write('rental.json', rental.to_json)
+    File.write('rental.json', JSON.generate(rental))
   end
 
   def list_rentals
@@ -152,25 +152,68 @@ class App
 
   def load_data
     if File.exist?('student.json')
-      json_data = File.read('student.json')
-      s = Student.from_json(json_data)
-      @people.push(s)
+      File.foreach('student.json') do |line|
+        s = JSON.parse(line, create_additions: true)
+        @people.push(s)
+      end
     end
+
     if File.exist?('teacher.json')
-      json_data = File.read('teacher.json')
-      s = Teacher.from_json(json_data)
-      @people.push(s)
+      File.foreach('teacher.json') do |line|
+        s = JSON.parse(line, create_additions: true)
+        @people.push(s)
+      end
     end
+    
     return unless File.exist?('book.json')
 
-    json_data = File.read('book.json')
-    s = Book.from_json(json_data)
-    @books.push(s)
+    File.foreach('book.json') do |line|
+      s = JSON.parse(line, create_additions: true)
+      @books.push(s)
+    end
 
     return unless File.exist?('rental.json')
 
-    json_data = File.read('rental.json')
-    s = Rental.from_json(json_data)
-    @books.push(s)
+    File.foreach('rental.json') do |line|
+      s = JSON.parse(line)
+      selected_person = ObjectSpace.each_object(Student).select do |obj|
+        obj.name == s['a'][1]['a'][2] && obj.age == s['a'][1]['a'][0]
+      end
+      selected_book = ObjectSpace.each_object(Book).select do |obj|
+        obj.title == s['a'][2]['a'][0]
+      end
+      s1 = Rental.new(s['a'][0], selected_person[0], selected_book[0])
+      @rentals.push(s1)
+    end
+  end
+
+  def save_data
+    File.open('student.json', 'w') do |file|
+      @people.each do |people|
+        if people.type == 'Student'
+          file.puts JSON.generate(people)
+        end
+      end
+    end
+
+    File.open('teacher.json', 'w') do |file|
+      @people.each do |people|
+        if people.type == 'Teacher'
+          file.puts JSON.generate(people)
+        end
+      end
+    end
+
+    File.open('book.json', 'w') do |file|
+      @books.each do |book|
+        file.puts JSON.generate(book) 
+      end
+    end
+
+    File.open('rental.json', 'w') do |file|
+      @rentals.each do |rental|
+        file.puts JSON.generate(rental) 
+      end
+    end
   end
 end

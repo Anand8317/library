@@ -2,7 +2,7 @@ require './person'
 require 'json'
 
 class Teacher < Person
-  attr_accessor :type
+  attr_accessor :type, :specialization
 
   def initialize(age, specialization, name = 'unknown')
     super(age, name)
@@ -14,16 +14,14 @@ class Teacher < Person
     true
   end
 
-  def to_json(*_args)
-    { age: @age,
-      specialization: @specialization,
-      name: @name }.to_json
+  def to_json(*args)
+    {
+      JSON.create_id  => self.class.name,
+      'a'             => [ age, specialization, name ]
+    }.to_json(*args)
   end
 
-  def self.from_json(json_string)
-    age = JSON.parse(json_string)['age']
-    specialization = JSON.parse(json_string)['specialization']
-    name = JSON.parse(json_string)['name']
-    Teacher.new(age, specialization, name)
+  def self.json_create(object)
+    new(*object['a'])
   end
 end

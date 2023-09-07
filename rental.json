@@ -1,1 +1,3 @@
-{"date":"2020/12/23","person":{"age":32,"specialization":"M","name":"Innocent"},"book":{"title":"Aa","author":"Aaa"}}
+{"json_class":"Rental","a":["23/03/2023",{"json_class":"Student","a":[21,"#<Classroom:0x0000000105932820>","Anand"]},{"json_class":"Book","a":["aa","aaa"]}]}
+{"json_class":"Rental","a":["23/05/2023",{"json_class":"Student","a":[23,"#<Classroom:0x0000000105931808>","qwe"]},{"json_class":"Book","a":["qqq","qqqq"]}]}
+{"json_class":"Rental","a":["23/07/2000",{"json_class":"Student","a":[23,"#<Classroom:0x0000000105931808>","qwe"]},{"json_class":"Book","a":["aa","aaa"]}]}

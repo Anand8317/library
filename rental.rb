@@ -7,9 +7,9 @@ class Rental
   def initialize(date, person, book)
     @date = date
     @person = person
-    person.rentals << self
+    @person.rentals << self
     @book = book
-    book.rentals << self
+    @book.rentals << self
   end
 
   def book=(book)
@@ -22,16 +22,14 @@ class Rental
     person.add_rental(self)
   end
 
-  def to_json(*_args)
-    { date: @date,
-      person: @person,
-      book: @book }.to_json
+  def to_json(*args)
+    {
+      JSON.create_id  => self.class.name,
+      'a'             => [ date, person, book ]
+    }.to_json(*args)
   end
 
-  def self.from_json(json_string)
-    date = JSON.parse(json_string)['date']
-    person = JSON.parse(json_string)['person']
-    book = JSON.parse(json_string)['book']
-    Rental.new(date, person, book)
+  def self.json_create(object)
+    new(*object['a'])
   end
 end

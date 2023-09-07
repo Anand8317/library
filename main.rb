@@ -18,6 +18,7 @@ def menu(app)
 
     choice = gets.chomp.to_i
     if choice == 7
+      app.save_data
       puts 'Thank you for using our app.'
       break
     else

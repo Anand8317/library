@@ -1,1 +1,2 @@
-{"age":21,"classroom":"#<Classroom:0x0000000107d17768>","name":"Anand"}
+{"json_class":"Student","a":[21,"#<Classroom:0x0000000105932820>","Anand"]}
+{"json_class":"Student","a":[23,"#<Classroom:0x0000000105931808>","qwe"]}
