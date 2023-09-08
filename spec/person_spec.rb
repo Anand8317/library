@@ -44,4 +44,10 @@ describe Person do
       expect(person.correct_name).to eq('John Doe')
     end
   end
+
+  describe '#add_rental method' do
+    it 'Returns true if it is an instance of Rental class' do
+      expect(person.add_rental('23/03/2023', Book.new('Title', 'Author'))).to be_an_instance_of Rental
+    end
+  end
 end
