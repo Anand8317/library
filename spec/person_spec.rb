@@ -38,4 +38,10 @@ describe Person do
       expect(underage_person.can_use_services?).to eq(false)
     end
   end
+
+  describe '#correct_name method' do
+    it 'Returns John Doe as a name of person' do
+      expect(person.correct_name).to eq('John Doe')
+    end
+  end
 end
